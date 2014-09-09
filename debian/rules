@@ -6,3 +6,7 @@ export USE_QT5=1
 
 %:
 	dh ${@} --buildsystem cmake --parallel
+
+
+override_dh_strip:
+	dh_strip --dbg-package=lxqt-admin-qt5-dbg
