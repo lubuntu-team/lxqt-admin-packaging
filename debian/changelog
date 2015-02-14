@@ -1,4 +1,4 @@
-lxqt-admin (0.8.0-1) unstable; urgency=medium
+lxqt-admin (0.9.0-1) experimental; urgency=low
 
   * Imported Upstream version 0.8.0
   * bump to current standards 3.9.6
@@ -12,6 +12,6 @@ lxqt-admin (0.8.0-1) unstable; urgency=medium
 
 lxqt-admin (0.7.96-1) unstable; urgency=medium
 
-  * Initial release (Closes: #765773) 
+  * Initial release (Closes: #765773)
 
- -- Alf Gaida <agaida@siduction.org>  Wed, 21 May 2014 20:13:13 +0200
+ -- Alf Gaida <agaida@siduction.org>  Sat, 14 Feb 2015 18:53:11 +0100
