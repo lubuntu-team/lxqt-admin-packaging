@@ -45,7 +45,7 @@ Replaces: lxqt-admin-qt5-dbg (<< 0.9.0)
 Depends:
  ${misc:Depends},
  lxqt-admin (= ${binary:Version}),
-Replace: lxqt-admin-qt5-dbg
+Replaces: lxqt-admin-qt5-dbg
 Description: Admin tools for LXQt (debug)
  Admin tools for LXQt, as of now:
  * lxqt-admin-time
