@@ -52,21 +52,3 @@ Description: Admin tools for LXQt (debug)
  .
  This package provides the debugging symbols.
 
-# ---- to be removed in 2016 ----
-
-Package: lxqt-admin-qt5
-Depends: lxqt-admin, ${misc:Depends}
-Priority: extra
-Section: oldlibs
-Architecture: all
-Description: lxqt-admin transitional package
- Empty package to facilitate upgrades, can be safely removed.
-
-Package: lxqt-admin-qt5-dbg
-Depends: lxqt-admin-dbg, ${misc:Depends}
-Priority: extra
-Section: oldlibs
-Architecture: all
-Description: lxqt-admin transitional package (dbg)
- Empty package to facilitate upgrades, can be safely removed.
-
