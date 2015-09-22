@@ -1,12 +1,7 @@
-lxqt-admin (0.9.0+20150830-1) unstable; urgency=medium
+lxqt-admin (0.9.0+20150830-1) experimental; urgency=medium
 
   * Cherry-picked upstream 0.9.0+20150830
   * LD flags added -Wl,--as-needed
-
- -- Alf Gaida <agaida@siduction.org>  Wed, 02 Sep 2015 00:45:54 +0200
-
-lxqt-admin (0.9.0+20150807-2) unstable; urgency=medium
-
   * Removed breaks/replaces 
   * cme fix dpkg-control 
   * Added upstream signing key and use it in watch file
