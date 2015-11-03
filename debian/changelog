@@ -1,3 +1,10 @@
+lxqt-admin (0.10.0-1) experimental; urgency=medium
+
+  * Cherry-picking upstream version 0.10.0.
+  * Set minimum versions for liblxqt and libqtxdg
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 03 Nov 2015 20:59:51 +0100
+
 lxqt-admin (0.9.0+20150830-2) experimental; urgency=medium
 
   * set a minimum version of liblxqt (>= 0.9.0+20150911) for LxQt to LXQt
