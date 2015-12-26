@@ -31,16 +31,3 @@ Description: Admin tools for LXQt
   * lxqt-admin-user
  .
  This package contain the LXQt Admin Tools.
-
-Package: lxqt-admin-dbg
-Architecture: any
-Section: debug
-Priority: extra
-Depends: ${misc:Depends},
-         lxqt-admin (= ${binary:Version})
-Description: Admin tools for LXQt (debug)
- Admin tools for LXQt, as of now:
-  * lxqt-admin-time
-  * lxqt-admin-user
- .
- This package provides the debugging symbols.
