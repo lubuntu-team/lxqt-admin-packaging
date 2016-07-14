@@ -31,82 +31,59 @@
 #include <QMessageBox>
 #include <QDateTime>
 #include <QMap>
+#include <QDebug>
 
 #include "datetime.h"
 #include "timezone.h"
 
-
 #define ZONETAB_PATH "/usr/share/zoneinfo/zone.tab"
 
 TimeAdminDialog::TimeAdminDialog(QWidget *parent):
-    LXQt::ConfigDialog(tr("Time and date configuration"),new LXQt::Settings("TimeDate"), parent),
-    mTimeConfig(OOBS_TIME_CONFIG(oobs_time_config_get())),
-    mUserLogedIn(false)
+    LXQt::ConfigDialog(tr("Time and date configuration"),new LXQt::Settings("TimeDate"), parent)
 {
-    oobs_object_update(OOBS_OBJECT(mTimeConfig));
-
     setMinimumSize(QSize(400,400));
     mWindowTitle = windowTitle();
 
-
-    mDateTimeWidget = new DateTime(this);
+    mDateTimeWidget = new DateTimePage(mTimeDateCtl.useNtp(), mTimeDateCtl.localRtc(), this);
     addPage(mDateTimeWidget,tr("Date and time"));
     connect(this,SIGNAL(reset()),mDateTimeWidget,SLOT(reload()));
-    connect(mDateTimeWidget,&DateTime::changed,this,&TimeAdminDialog::onChanged);
-    mDateTimeWidget->setProperty("pModified",M_TIMEDATE);
+    connect(mDateTimeWidget,&DateTimePage::changed,this,&TimeAdminDialog::onChanged);
 
     QStringList zones;
     QString currentZone;
     loadTimeZones(zones,currentZone);
-    mTimezoneWidget = new Timezone(zones,currentZone,this);
+    mTimezoneWidget = new TimezonePage(zones,currentZone,this);
     addPage(mTimezoneWidget,tr("Timezone"));
-    connect(this,&TimeAdminDialog::reset,mTimezoneWidget,&Timezone::reload);
-    connect(mTimezoneWidget,&Timezone::changed,this,&TimeAdminDialog::onChanged);
-    mTimezoneWidget->setProperty("pModified",M_TIMEZONE);
+    connect(this,&TimeAdminDialog::reset,mTimezoneWidget,&TimezonePage::reload);
+    connect(mTimezoneWidget,&TimezonePage::changed,this,&TimeAdminDialog::onChanged);
+
+    setButtons(QDialogButtonBox::Ok|QDialogButtonBox::Cancel);
+    connect(this, &LXQt::ConfigDialog::clicked, this, &TimeAdminDialog::onButtonClicked);
+    adjustSize();
 }
 
 TimeAdminDialog::~TimeAdminDialog()
 {
-    if(mTimeConfig)
-        g_object_unref(mTimeConfig);
 }
 
-void TimeAdminDialog::onChanged(bool ch)
+void TimeAdminDialog::onChanged()
 {
-    widgets_modified_enum flag = (widgets_modified_enum)
-            sender()->property("pModified").toUInt();
-    ch ? mWidgetsModified |= flag : mWidgetsModified &= ~flag;
     showChangedStar();
 }
 
 
 void TimeAdminDialog::showChangedStar()
 {
-    if (mWidgetsModified)
+    if(mTimezoneWidget->isChanged() || mDateTimeWidget->modified())
         setWindowTitle(mWindowTitle + "*");
     else
         setWindowTitle(mWindowTitle);
 }
 
-void TimeAdminDialog::closeEvent(QCloseEvent *event)
-{
-    //save changes to system
-    if (mWidgetsModified)
-    {
-        if (logInUser())
-        {
-            saveChangesToSystem();
-            event->accept();
-        }
-        else
-        {
-            event->ignore();
-        }
-    }
-}
-
 void TimeAdminDialog::loadTimeZones(QStringList & timeZones, QString & currentTimezone)
 {
+    currentTimezone = mTimeDateCtl.timeZone();
+
     timeZones.clear();
     QFile file(ZONETAB_PATH);
     if(file.open(QIODevice::ReadOnly))
@@ -124,44 +101,61 @@ void TimeAdminDialog::loadTimeZones(QStringList & timeZones, QString & currentTi
         }
         file.close();
     }
-    currentTimezone = QString::fromLatin1(oobs_time_config_get_timezone(mTimeConfig));
 }
 
 
 
 void TimeAdminDialog::saveChangesToSystem()
 {
-    QByteArray timeZone = mTimezoneWidget->timezone().toLatin1();
-    // FIXME: currently timezone settings does not work. is this a bug of system-tools-backend?
-    if(!timeZone.isEmpty() && mWidgetsModified.testFlag(M_TIMEZONE))
-        oobs_time_config_set_timezone(mTimeConfig, timeZone.constData());
-
-    if(mWidgetsModified.testFlag(M_TIMEDATE))
+    QString errorMessage;
+    if(mTimezoneWidget->isChanged())
     {
-        QDate d = mDateTimeWidget->dateTime().date();
-        QTime t = mDateTimeWidget->dateTime().time();
-        // oobs seems to use 0 based month
-        oobs_time_config_set_time(mTimeConfig, d.year(), d.month() - 1, d.day(), t.hour(), t.minute(), t.second());
+        QString timeZone = mTimezoneWidget->timezone();
+        if(!timeZone.isEmpty())
+        {
+            if(false == mTimeDateCtl.setTimeZone(timeZone, errorMessage)) {
+                QMessageBox::critical(this, tr("Error"), errorMessage);
+            }
+        }
     }
-    oobs_object_commit(OOBS_OBJECT(mTimeConfig));
+
+    auto modified = mDateTimeWidget->modified();
+    bool useNtp = mDateTimeWidget->useNtp();
+    if(modified.testFlag(DateTimePage::M_NTP))
+    {
+        if(false == mTimeDateCtl.setUseNtp(useNtp, errorMessage)) {
+            QMessageBox::critical(this, tr("Error"), errorMessage);
+        }
+    }
+
+    if(modified.testFlag(DateTimePage::M_LOCAL_RTC))
+    {
+        if(false == mTimeDateCtl.setLocalRtc(mDateTimeWidget->localRtc(), errorMessage)) {
+            QMessageBox::critical(this, tr("Error"), errorMessage);
+        }
+    }
+
+    // we can only change the date & time explicitly when NTP is disabled.
+    if(false == useNtp)
+    {
+        if(modified.testFlag(DateTimePage::M_DATE) || modified.testFlag(DateTimePage::M_TIME))
+        {
+            if(false == mTimeDateCtl.setDateTime(mDateTimeWidget->dateTime(), errorMessage)) {
+                QMessageBox::critical(this, tr("Error"), errorMessage);
+            }
+        }
+    }
 }
 
-bool TimeAdminDialog::logInUser()
+void TimeAdminDialog::onButtonClicked(QDialogButtonBox::StandardButton button)
 {
-    if (mUserLogedIn)
-        return true;
-
-    GError* err = NULL;
-    if(oobs_object_authenticate(OOBS_OBJECT(mTimeConfig), &err))
+    if(button == QDialogButtonBox::Ok)
     {
-        mUserLogedIn = true;
-        return true;
+        saveChangesToSystem();
+        accept();
     }
-    else if(err)
+    else if(button == QDialogButtonBox::Cancel)
     {
-        QMessageBox::critical(this, tr("Authentication Error"), QString::fromUtf8(err->message));
-        g_error_free(err);
+        reject();
     }
-
-    return false;
 }

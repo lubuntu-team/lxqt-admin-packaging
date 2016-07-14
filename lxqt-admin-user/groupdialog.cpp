@@ -20,111 +20,60 @@
 
 #include "groupdialog.h"
 #include <QMessageBox>
+#include "usermanager.h"
+#include <QDebug>
 
 #define DEFAULT_GID_MIN 1000
 #define DEFAULT_GID_MAX 32768
 
-GroupDialog::GroupDialog(OobsGroup *group, QWidget *parent, Qt::WindowFlags f):
+GroupDialog::GroupDialog(UserManager* userManager, GroupInfo* group, QWidget *parent, Qt::WindowFlags f):
     QDialog(parent, f),
-    mGroup(group ? OOBS_GROUP(g_object_ref(group)) : NULL)
+    mUserManager(userManager),
+    mGroup(group)
 {
     ui.setupUi(this);
+    ui.groupName->setText(group->name());
+    ui.gid->setValue(group->gid());
 
-    OobsGroupsConfig* groupsConfig = OOBS_GROUPS_CONFIG(oobs_groups_config_get());
-    if(group) // edit an exiting group
-    {
-        ui.groupName->setReadOnly(true);
-        ui.groupName->setText(oobs_group_get_name(group));
-        mOldGId = oobs_group_get_gid(group);
-        ui.gid->setValue(mOldGId);
-    }
-    else // create a new group
-    {
-        mOldGId = -1;
-        ui.gid->setValue(oobs_groups_config_find_free_gid(groupsConfig, DEFAULT_GID_MIN, DEFAULT_GID_MAX));
-    }
-
-    GList* groupUsers = oobs_group_get_users(mGroup); // all users in this group
+    const QStringList& members = group->members(); // all users in this group
     // load all users
-    OobsUsersConfig* usersConfig = OOBS_USERS_CONFIG(oobs_users_config_get());
-    OobsList* users = oobs_users_config_get_users(usersConfig);
-    if(users)
+    for(const UserInfo* user: userManager->users())
     {
-        OobsListIter it;
-        gboolean valid = oobs_list_get_iter_first(users, &it);
-        while(valid)
-        {
-            OobsUser* user = OOBS_USER(oobs_list_get(users, &it));
-            QListWidgetItem* item = new QListWidgetItem();
-            item->setText(oobs_user_get_login_name(user));
-            item->setFlags(Qt::ItemIsEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsSelectable);
-            if(g_list_find(groupUsers, user)) // the user is in this group
-                item->setCheckState(Qt::Checked);
-            else
-                item->setCheckState(Qt::Unchecked);
-            QVariant obj = QVariant::fromValue<void*>(user);
-            item->setData(Qt::UserRole, obj);
-            ui.userList->addItem(item);
-            valid = oobs_list_iter_next(users, &it);
-        }
+        QListWidgetItem* item = new QListWidgetItem();
+        item->setText(user->name());
+        item->setFlags(Qt::ItemIsEnabled|Qt::ItemIsUserCheckable|Qt::ItemIsSelectable);
+        if(members.indexOf(user->name()) != -1) // the user is in this group
+            item->setCheckState(Qt::Checked);
+        else
+            item->setCheckState(Qt::Unchecked);
+        QVariant obj = QVariant::fromValue<void*>((void*)user);
+        item->setData(Qt::UserRole, obj);
+        ui.userList->addItem(item);
     }
-    g_list_free(groupUsers);
 }
 
 GroupDialog::~GroupDialog()
 {
-    if(mGroup)
-        g_object_unref(mGroup);
 }
 
 void GroupDialog::accept()
 {
-    OobsGroupsConfig* groupsConfig = OOBS_GROUPS_CONFIG(oobs_groups_config_get());
-    gid_t gid = ui.gid->value();
-    if(gid != mOldGId && oobs_groups_config_is_gid_used(groupsConfig, gid))
+    QString groupName = ui.groupName->text();
+    if(groupName.isEmpty())
     {
-        QMessageBox::critical(this, tr("Error"), tr("The group ID is in use."));
+        QMessageBox::critical(this, tr("Error"), tr("The group name cannot be empty."));
         return;
     }
-
-    if(!mGroup) // create a new group
-    {
-        QByteArray groupName = ui.groupName->text().toLatin1();
-        if(groupName.isEmpty())
-        {
-            QMessageBox::critical(this, tr("Error"), tr("The group name cannot be empty."));
-            return;
-        }
-        if(oobs_groups_config_is_name_used(groupsConfig, groupName))
-        {
-            QMessageBox::critical(this, tr("Error"), tr("The group name is in use."));
-            return;
-        }
-        mGroup = oobs_group_new(groupName);
-    }
-    oobs_group_set_gid(mGroup, gid);
+    mGroup->setName(groupName);
+    mGroup->setGid(ui.gid->value());
 
     // update users
-    GList* groupUsers = oobs_group_get_users(mGroup); // all users in this group
-    int rowCount = ui.userList->count();
-    for(int row = 0; row < rowCount; ++row)
-    {
+    mGroup->removeAllMemberss();
+    for(int row = 0; row < ui.userList->count(); ++row) {
         QListWidgetItem* item = ui.userList->item(row);
-        QVariant obj = item->data(Qt::UserRole);
-        OobsUser* user = OOBS_USER(obj.value<void*>());
-        if(g_list_find(groupUsers, user)) // the user belongs to this group previously
-        {
-            if(item->checkState() == Qt::Unchecked) // it's unchecked, remove it
-                oobs_group_remove_user(mGroup, user);
-        }
-        else // the user does not belong to this group previously
-        {
-            if(item->checkState() == Qt::Checked) // it's checked, we want it!
-                oobs_group_add_user(mGroup, user);
+        if(item->checkState() == Qt::Checked) {
+            mGroup->addMember(item->text());
         }
     }
-    g_list_free(groupUsers);
-
-    oobs_object_commit(OOBS_OBJECT(mGroup));
     QDialog::accept();
 }
