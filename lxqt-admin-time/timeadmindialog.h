@@ -26,13 +26,10 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <LXQt/ConfigDialog>
-#include <glib.h>
-#include <oobs/oobs-timeconfig.h>
-#include <oobs/oobs-ntpconfig.h>
-#include <oobs/oobs-ntpserver.h>
+#include "timedatectl.h"
 
-class DateTime;
-class Timezone;
+class DateTimePage;
+class TimezonePage;
 
 class TimeAdminDialog: public LXQt::ConfigDialog
 {
@@ -42,30 +39,18 @@ public:
     TimeAdminDialog(QWidget * parent = NULL) ;
     ~TimeAdminDialog();
 
-
-    typedef enum  {M_TIMEDATE = 1 , M_TIMEZONE = 0x2} widgets_modified_enum;
-    Q_DECLARE_FLAGS(widgets_modified_t, widgets_modified_enum)
-
-protected:
-    virtual void closeEvent(QCloseEvent  * event);
-
 private Q_SLOTS:
-    void onChanged(bool);
+    void onChanged();
+    void onButtonClicked(QDialogButtonBox::StandardButton button);
 
 private:
-    bool logInUser();
     void saveChangesToSystem();
     void loadTimeZones(QStringList & timeZones, QString & currentTimezone);
     void showChangedStar();
 
 private:
-    OobsTimeConfig* mTimeConfig;
-    DateTime * mDateTimeWidget;
-    Timezone * mTimezoneWidget;
-    bool mUserLogedIn;
+    TimeDateCtl mTimeDateCtl;
+    DateTimePage * mDateTimeWidget;
+    TimezonePage * mTimezoneWidget;
     QString mWindowTitle;
-    widgets_modified_t mWidgetsModified;
 };
-
-Q_DECLARE_METATYPE(TimeAdminDialog::widgets_modified_enum)
-Q_DECLARE_OPERATORS_FOR_FLAGS(TimeAdminDialog::widgets_modified_t)

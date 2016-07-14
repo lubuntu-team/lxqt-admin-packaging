@@ -3,7 +3,6 @@ project(lxqt-admin-user)
 # build static helper class first
 include_directories (
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${OOBS_INCLUDE_DIRS}
 )
 
 set ( lxqt-admin-user_SRCS
@@ -11,12 +10,14 @@ set ( lxqt-admin-user_SRCS
     mainwindow.cpp
     userdialog.cpp
     groupdialog.cpp
+    usermanager.cpp
 )
 
 set ( lxqt-admin-user_MOCS
     mainwindow.h
     userdialog.h
     groupdialog.h
+    usermanager.h
 )
 
 set( lxqt-admin-user_UIS
@@ -37,6 +38,16 @@ lxqt_translate_ts(lxqt-admin-user_QM_FILES
     ${lxqt-admin-user_UIS}
     INSTALL_DIR
     "${LXQT_TRANSLATIONS_DIR}/${PROJECT_NAME}"
+    PULL_TRANSLATIONS
+        ${PULL_TRANSLATIONS}
+    CLEAN_TRANSLATIONS
+        ${CLEAN_TRANSLATIONS}
+    TRANSLATIONS_REPO
+        ${TRANSLATIONS_REPO}
+    TRANSLATIONS_REFSPEC
+        ${TRANSLATIONS_REFSPEC}
+    REPO_SUBDIR
+        "lxqt-admin/${PROJECT_NAME}"
 )
 
 lxqt_translate_desktop(DESKTOP_FILES
@@ -59,8 +70,17 @@ target_link_libraries(lxqt-admin-user
     KF5::WindowSystem
     Qt5::Widgets
     lxqt
-    ${OOBS_LIBRARIES}
 )
 
 install(TARGETS lxqt-admin-user RUNTIME DESTINATION bin)
 install(FILES ${DESKTOP_FILES} DESTINATION ${CMAKE_INSTALL_PREFIX}/share/applications)
+
+# for policykit
+# manpage for pcmanfm-qt
+configure_file(
+    "org.lxqt.lxqt-admin-user.policy.in"
+    "${CMAKE_CURRENT_BINARY_DIR}/org.lxqt.lxqt-admin-user.policy"
+    @ONLY
+)
+install(PROGRAMS "lxqt-admin-user-helper" DESTINATION bin)
+install(FILES "${CMAKE_CURRENT_BINARY_DIR}/org.lxqt.lxqt-admin-user.policy" DESTINATION "share/polkit-1/actions")

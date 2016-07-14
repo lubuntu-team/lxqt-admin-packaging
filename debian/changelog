@@ -1,5 +1,6 @@
-lxqt-admin (0.10.0-4) experimental; urgency=medium
+lxqt-admin (0.10.96~24-gd87b750-1) experimental; urgency=medium
 
+  * Cherry-picking upstream version 0.10.96~24-gd87b750.
   * Preparing the upcoming release, switch to experimental
   * Removed build dependency liboobs-1-dev (Closes: )
   * Added build dependency libqt5xdgiconloader-dev
@@ -13,7 +14,7 @@ lxqt-admin (0.10.0-4) experimental; urgency=medium
   * Set CMAKE_BUILD_TYPE=RelWithDebInfo
   * Added README.md to docs
 
- -- Alf Gaida <agaida@siduction.org>  Thu, 14 Jul 2016 23:50:08 +0200
+ -- Alf Gaida <agaida@siduction.org>  Fri, 15 Jul 2016 00:56:29 +0200
 
 lxqt-admin (0.10.0-3) unstable; urgency=medium
 
