@@ -1,3 +1,20 @@
+lxqt-admin (0.10.0-4) experimental; urgency=medium
+
+  * Preparing the upcoming release, switch to experimental
+  * Removed build dependency liboobs-1-dev (Closes: )
+  * Added build dependency libqt5xdgiconloader-dev
+  * Removed minimum versions for libqt5xdg-dev
+  * Bumped Standards to 3.9.8, no changes needed
+  * Fixed VCS-Fields, use https
+  * Added recommends lxqt-admin-l10n
+  * Bumped copyright years
+  * Added hardening to rules
+  * Added translation control to rules
+  * Set CMAKE_BUILD_TYPE=RelWithDebInfo
+  * Added README.md to docs
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 14 Jul 2016 23:50:08 +0200
+
 lxqt-admin (0.10.0-3) unstable; urgency=medium
 
   * Remove dbg package in favor of dbgsym.
