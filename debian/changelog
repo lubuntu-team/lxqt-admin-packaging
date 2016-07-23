@@ -1,9 +1,16 @@
+lxqt-admin (0.10.96~24-gd87b750-3) experimental; urgency=medium
+
+  * Fixed two typos in changelog
+  * Added a lintian-override for lxqt-admin-user-helper
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 23 Jul 2016 13:24:41 +0200
+
 lxqt-admin (0.10.96~24-gd87b750-2) experimental; urgency=medium
 
   * Added build dependencies gcc (>= 4:6), g++ (>= 4:6)
-  * Exported LC_ALL=C.UTF-8 - define language settings for reproducable
+  * Exported LC_ALL=C.UTF-8 - define language settings for reproducible
     builds
-  * Set additional minumum versions (libqtxdg, liblxqt)
+  * Set additional minimum versions (libqtxdg, liblxqt)
 
  -- Alf Gaida <agaida@siduction.org>  Sun, 17 Jul 2016 12:11:47 +0200
 
