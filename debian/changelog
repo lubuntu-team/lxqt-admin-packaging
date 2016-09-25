@@ -1,3 +1,17 @@
+lxqt-admin (0.11.0-1) experimental; urgency=medium
+
+  * Cherry-picking new upstream version 0.11.0
+  * Bumped compat to 10
+  * Bumped minimum version debhelper (>= 10)
+  * Bumped minimum version liblxqt0-dev (>= 0.11.0)
+  * Bumped minimum version libqt5xdg-dev (>= 2.0.0)
+  * Bumped minimum version libqt5xdgiconloader-dev (>= 2.0.0)
+  * Added build dependency libqt5svg5-dev
+  * Really close the liboobs bug (Closes: #821864)
+  * Removed --parallel from rules, standard in compat 10
+
+ -- Alf Gaida <agaida@siduction.org>  Sun, 25 Sep 2016 11:23:41 +0200
+
 lxqt-admin (0.10.96~24-gd87b750-3) experimental; urgency=medium
 
   * Fixed two typos in changelog
