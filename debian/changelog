@@ -1,3 +1,28 @@
+lxqt-admin (0.11.0-2) unstable; urgency=medium
+
+  * Cherry-picking new upstream version 0.11.0
+  * Synced debian foo with experimental
+  * Bumped compat to 10
+  * Removed --parallel from rules, standard compat 10
+  * Bumped minimum version debhelper (>= 10)
+  * Bumped minimum version liblxqt0-dev (>= 0.11.0)
+  * Bumped minimum version libqt5xdg-dev (>= 2.0.0)
+  * Added build dependency libqt5xdgiconloader-dev (>= 2.0.0)
+  * Added build dependency libqt5svg5-dev
+  * Removed build dependency liboobs-1-dev
+  * Added recommends lxqt-admin-l10n
+  * Added a lintian-override for lxqt-admin-user-helper
+  * Exported LC_ALL=C.UTF-8 - define language settings for reproducible
+    builds
+  * Fixed VCS-Fields, use https
+  * Bumped copyright years
+  * Added hardening to rules
+  * Added translation control to rules
+  * Set CMAKE_BUILD_TYPE=RelWithDebInfo
+  * Added README.md to docs
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 18 Oct 2016 01:54:42 +0200
+
 lxqt-admin (0.10.0-3) unstable; urgency=medium
 
   * Remove dbg package in favor of dbgsym.

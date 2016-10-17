@@ -3,13 +3,13 @@ project(lxqt-admin-time)
 # build static helper class first
 include_directories (
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${OOBS_INCLUDE_DIRS}
 )
 
 set ( lxqt-admin-time_HDRS
     timeadmindialog.h
     datetime.h
     timezone.h
+    timedatectl.h
 )
 
 set ( lxqt-admin-time_SRCS
@@ -17,6 +17,7 @@ set ( lxqt-admin-time_SRCS
     timeadmindialog.cpp
     datetime.cpp
     timezone.cpp
+    timedatectl.cpp
 )
 
 set ( lxqt-admin-time_MOCS
@@ -42,6 +43,16 @@ lxqt_translate_ts(lxqt-admin-time_QM_FILES
     ${lxqt-admin-time_UIS}
     INSTALL_DIR
     "${LXQT_TRANSLATIONS_DIR}/${PROJECT_NAME}"
+    PULL_TRANSLATIONS
+        ${PULL_TRANSLATIONS}
+    CLEAN_TRANSLATIONS
+        ${CLEAN_TRANSLATIONS}
+    TRANSLATIONS_REPO
+        ${TRANSLATIONS_REPO}
+    TRANSLATIONS_REFSPEC
+        ${TRANSLATIONS_REFSPEC}
+    REPO_SUBDIR
+        "lxqt-admin/${PROJECT_NAME}"
 )
 
 lxqt_translate_desktop(DESKTOP_FILES
@@ -64,8 +75,8 @@ add_executable(lxqt-admin-time
 target_link_libraries(lxqt-admin-time
     KF5::WindowSystem
     Qt5::Widgets
+    Qt5::DBus
     lxqt
-    ${OOBS_LIBRARIES}
 )
 
 install(TARGETS lxqt-admin-time RUNTIME DESTINATION bin)

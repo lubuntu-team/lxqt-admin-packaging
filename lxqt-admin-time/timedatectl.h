@@ -4,7 +4,7 @@
  * LXQt - a lightweight, Qt based, desktop toolset
  * http://lxqt.org
  *
- * Copyright: 2014 LXQt team
+ * Copyright: 2016 LXQt team
  * Authors:
  *   Hong Jen Yee (PCMan) <pcman.tw@gmail.com>
  *
@@ -25,55 +25,33 @@
  *
  * END_COMMON_COPYRIGHT_HEADER */
 
-#ifndef DATETIME_H
-#define DATETIME_H
+#ifndef TIMEDATECTL_H
+#define TIMEDATECTL_H
 
-#include <QWidget>
+#include <QString>
+#include <QDateTime>
 
-namespace Ui {
-class DateTime;
-}
+class QDBusInterface;
 
-class DateTimePage : public QWidget
+class TimeDateCtl
 {
-    Q_OBJECT
-
 public:
-    explicit DateTimePage(bool useNtp, bool localRtc, QWidget *parent = 0);
-    ~DateTimePage();
+    explicit TimeDateCtl();
+    ~TimeDateCtl();
 
-    enum ModifiedFlag {M_DATE = (1 << 0), M_TIME = (1 << 1), M_NTP = (1 << 2), M_LOCAL_RTC = (1 << 3)};
-    Q_DECLARE_FLAGS(ModifiedFlags,ModifiedFlag)
-
-    ModifiedFlags modified() const
-    {
-        return mModified;
-    }
-
-    QDateTime dateTime() const;
     bool useNtp() const;
+    bool setUseNtp(bool value, QString& errorMessage);
+
     bool localRtc() const;
+    bool setLocalRtc(bool value, QString& errorMessage);
 
-public Q_SLOTS:
-    void reload();
+    QString timeZone() const;
+    bool setTimeZone(QString timeZone, QString& errorMessage);
 
-private Q_SLOTS:
-    void on_edit_time_userTimeChanged(const QTime &time);
-    void timeout();
-    void on_calendar_selectionChanged();
-    void on_ntp_toggled(bool toggled);
-    void on_localRTC_toggled(bool toggled);
-
-Q_SIGNALS:
-    void changed();
+    bool setDateTime(QDateTime dateTime, QString& errorMessage);
 
 private:
-    Ui::DateTime *ui;
-    QTimer * mTimer;
-    bool mUseNtp;
-    bool mLocalRtc;
-    ModifiedFlags mModified;
+    QDBusInterface* mIface;
 };
 
-
-#endif // DATETIME_H
+#endif // TIMEDATECTL_H
