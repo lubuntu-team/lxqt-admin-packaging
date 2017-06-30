@@ -1,3 +1,11 @@
+lxqt-admin (0.11.1-2) unstable; urgency=medium
+
+  * Bumped Standards to 4.0.0 - no changes needed
+  * Recommend lxqt-qtplugin (Closes: #866233)
+  * Recommend lxqt-policykit (Closes: #866684)
+
+ -- Alf Gaida <agaida@siduction.org>  Fri, 30 Jun 2017 23:04:11 +0200
+
 lxqt-admin (0.11.1-1) unstable; urgency=medium
 
   * Cherry-picking new upstream version 0.11.1
