@@ -26,11 +26,24 @@
  * END_COMMON_COPYRIGHT_HEADER */
 
 #include <LXQt/SingleApplication>
+#include <QCommandLineParser>
 #include "timeadmindialog.h"
 
 int main(int argc, char **argv)
 {
     LXQt::SingleApplication app(argc, argv);
+    app.setAttribute(Qt::AA_UseHighDpiPixmaps, true);
+
+    QCommandLineParser parser;
+    parser.setApplicationDescription(QStringLiteral("LXQt Admin Time"));
+    const QString VERINFO = QStringLiteral(LXQT_ADMIN_VERSION
+                                           "\nliblxqt   " LXQT_VERSION
+                                           "\nQt        " QT_VERSION_STR);
+    app.setApplicationVersion(VERINFO);
+    parser.addVersionOption();
+    parser.addHelpOption();
+    parser.process(app);
+
     TimeAdminDialog dlg;
     dlg.setWindowIcon(QIcon::fromTheme("preferences-system"));
     app.setActivationWindow(&dlg);
