@@ -21,11 +21,8 @@ Homepage: https://github.com/lxqt/lxqt-admin
 
 Package: lxqt-admin
 Architecture: any
-Depends: ${misc:Depends},
-         ${shlibs:Depends}
-Recommends: lxqt-admin-l10n,
-            lxqt-qtplugin,
-            lxqt-policykit
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Recommends: lxqt-admin-l10n, lxqt-policykit, lxqt-qtplugin
 Description: Admin tools for LXQt
  Admin tools for LXQt, as of now:
   * lxqt-admin-time
