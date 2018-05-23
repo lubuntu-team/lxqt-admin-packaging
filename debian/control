@@ -9,6 +9,7 @@ Priority: optional
 Build-Depends: debhelper (>= 11),
                libkf5windowsystem-dev,
                liblxqt0-dev (>= 0.13.0),
+               libpolkit-qt5-1-dev,
                libqt5svg5-dev,
                libqt5x11extras5-dev,
                libx11-dev
