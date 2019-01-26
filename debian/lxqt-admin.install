@@ -1,0 +1,6 @@
+usr/share/applications/lxqt-admin-user.desktop
+usr/share/applications/lxqt-admin-time.desktop
+usr/share/polkit-1/actions/org.lxqt.lxqt-admin-user.policy
+usr/bin/lxqt-admin-time
+usr/bin/lxqt-admin-user
+usr/bin/lxqt-admin-user-helper
