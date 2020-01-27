@@ -1,3 +1,17 @@
+lxqt-admin (0.14.1-1ubuntu1) focal; urgency=low
+
+  * Merge from Debian unstable.  Remaining changes:
+    - Updated Build depends for liblxqt0-dev. (liblxqt0-dev (>= 0.14.1~)
+
+ -- Raman Sarda <theloudspeaker@lubuntu.me>  Tue, 28 Jan 2020 03:03:34 +0530
+
+lxqt-admin (0.14.1-1) unstable; urgency=medium
+
+  * Cherry-picking new upstream version 0.14.1.
+  * Bumped minimum version liblxqt0-dev (>= 0.14.1~)
+
+ -- Alf Gaida <agaida@siduction.org>  Tue, 26 Feb 2019 01:44:09 +0100
+
 lxqt-admin (0.14.1-0ubuntu1) disco; urgency=medium
 
   * New upstream release.
@@ -27,6 +41,20 @@ lxqt-admin (0.14.0-0ubuntu1) disco; urgency=medium
   * Add a new lxqt-admin-l10n package.
 
  -- Simon Quigley <tsimonq2@ubuntu.com>  Fri, 25 Jan 2019 23:59:31 -0600
+
+lxqt-admin (0.13.0-2) unstable; urgency=medium
+
+  * Fixed language in desktop file (ported back from upstream)
+
+ -- Alf Gaida <agaida@siduction.org>  Sat, 07 Jul 2018 19:56:09 +0200
+
+lxqt-admin (0.13.0-1) unstable; urgency=medium
+
+  * Cherry-picking new upstream version 0.13.0.
+  * Bumped build dependency liblxqt0-dev to >= 0.13.0~
+  * Added build dependency libpolkit-qt5-1-dev
+
+ -- Alf Gaida <agaida@siduction.org>  Thu, 24 May 2018 20:30:33 +0200
 
 lxqt-admin (0.13.0-0ubuntu1) cosmic; urgency=medium
 
@@ -182,3 +210,4 @@ lxqt-admin (0.9.0+20150807-1) unstable; urgency=medium
   * Remove useless whitespaces and warp long lines.
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Sat, 15 Aug 2015 01:49:08 +0800
+
