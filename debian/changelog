@@ -1,3 +1,9 @@
+lxqt-admin (0.15.0-0ubuntu1) UNRELEASED; urgency=medium
+
+  * New upstream release.
+
+ -- Simon Quigley <tsimonq2@ubuntu.com>  Tue, 28 Apr 2020 18:11:51 -0500
+
 lxqt-admin (0.14.1-1ubuntu1) focal; urgency=low
 
   * Merge from Debian unstable.  Remaining changes:
