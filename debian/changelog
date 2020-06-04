@@ -1,4 +1,4 @@
-lxqt-admin (0.15.0-0ubuntu1) UNRELEASED; urgency=medium
+lxqt-admin (0.15.0-0ubuntu1) groovy; urgency=medium
 
   * New upstream release.
     - Update upstream signing key.
@@ -6,7 +6,7 @@ lxqt-admin (0.15.0-0ubuntu1) UNRELEASED; urgency=medium
   * Update Standards-version to 4.5.0, no changes needed.
   * Run wrap-and-sort.
 
- -- Simon Quigley <tsimonq2@ubuntu.com>  Tue, 28 Apr 2020 18:11:51 -0500
+ -- Simon Quigley <tsimonq2@ubuntu.com>  Thu, 04 Jun 2020 00:38:52 -0500
 
 lxqt-admin (0.14.1-1ubuntu1) focal; urgency=low
 
