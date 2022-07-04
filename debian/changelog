@@ -4,6 +4,7 @@ lxqt-admin (1.1.0-0ubuntu2) UNRELEASED; urgency=medium
   * Updated Lubuntu Developers copyright to 2021-2022.
   * Removed redundant Repository-Browser field from d/upstream/metadata.
   * Bumped Standards-Version to 4.6.1, no changes necessary.
+  * Removed obsolete "-Wl,--as-needed" linker flag.
 
  -- Aaron Rainbolt <arraybolt3@gmail.com>  Sun, 03 Jul 2022 22:19:48 -0500
 
