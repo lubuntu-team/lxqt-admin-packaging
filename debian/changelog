@@ -6,6 +6,7 @@ lxqt-admin (1.1.0-0ubuntu2) UNRELEASED; urgency=medium
   * Bumped Standards-Version to 4.6.1, no changes necessary.
   * Removed obsolete "-Wl,--as-needed" linker flag.
   * Added "Rules-Requires-Root: no" to debian/control.
+  * Removed trailing whitespace from changelog.
 
  -- Aaron Rainbolt <arraybolt3@gmail.com>  Sun, 03 Jul 2022 22:19:48 -0500
 
@@ -270,4 +271,3 @@ lxqt-admin (0.9.0+20150807-1) unstable; urgency=medium
   * Remove useless whitespaces and warp long lines.
 
  -- Andrew Lee (李健秋) <ajqlee@debian.org>  Sat, 15 Aug 2015 01:49:08 +0800
-
