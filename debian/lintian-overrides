@@ -1,7 +1,7 @@
 # there will be no manual for a foreseable time
-lxqt-admin: binary-without-manpage usr/bin/lxqt-admin-time
-lxqt-admin: binary-without-manpage usr/bin/lxqt-admin-user
-lxqt-admin: binary-without-manpage usr/bin/lxqt-admin-user-helper
+lxqt-admin: no-manual-page usr/bin/lxqt-admin-time
+lxqt-admin: no-manual-page usr/bin/lxqt-admin-user
+lxqt-admin: no-manual-page usr/bin/lxqt-admin-user-helper
 
 # the category is right, but not in freedesktop right now
 lxqt-admin: desktop-entry-invalid-category LXQt usr/share/applications/lxqt-admin-time.desktop
