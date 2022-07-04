@@ -1,4 +1,4 @@
-lxqt-admin (1.1.0-0ubuntu2) UNRELEASED; urgency=medium
+lxqt-admin (1.1.0-0ubuntu1~ppa1) jammy; urgency=medium
 
   * Backport to Jammy.
   * Updated Lubuntu Developers copyright to 2021-2022.
