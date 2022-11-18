@@ -1,5 +1,6 @@
 Source: lxqt-admin
-Maintainer: LXQt Packaging Team <pkg-lxqt-devel@lists.alioth.debian.org>
+Maintainer: Lubuntu Developers <lubuntu-devel@lists.ubuntu.com>
+XSBC-Original-Maintainer: LXQt Packaging Team <pkg-lxqt-devel@lists.alioth.debian.org>
 Uploaders: Alf Gaida <agaida@siduction.org>,
            ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
            Andrew Lee (李健秋) <ajqlee@debian.org>,
@@ -16,8 +17,10 @@ Build-Depends: debhelper-compat (= 13),
                libsystemd-dev,
                libx11-dev
 Standards-Version: 4.6.1
-Vcs-Browser: https://salsa.debian.org/lxqt-team/lxqt-admin
-Vcs-Git: https://salsa.debian.org/lxqt-team/lxqt-admin.git
+Vcs-Browser: https://git.lubuntu.me/Lubuntu/lxqt-admin-packaging
+Vcs-Git: https://git.lubuntu.me/Lubuntu/lxqt-admin-packaging.git
+XS-Debian-Vcs-Browser: https://salsa.debian.org/lxqt-team/lxqt-admin
+XS-Debian-Vcs-Git: https://salsa.debian.org/lxqt-team/lxqt-admin.git
 Homepage: https://github.com/lxqt/lxqt-admin
 Rules-Requires-Root: no
 
