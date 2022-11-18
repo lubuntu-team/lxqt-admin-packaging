@@ -8,7 +8,7 @@ Section: x11
 Priority: optional
 Build-Depends: debhelper-compat (= 13),
                libkf5windowsystem-dev,
-               liblxqt0-dev (>= 0.17.0),
+               liblxqt1-dev (>= 1.1.0),
                libpolkit-qt5-1-dev,
                libqt5svg5-dev,
                libqt5x11extras5-dev,
@@ -37,8 +37,6 @@ Architecture: all
 Multi-Arch: foreign
 Section: localization
 Depends: qttranslations5-l10n, ${misc:Depends}
-Breaks: lxqt-admin (<< 0.11.0)
-Replaces: lxqt-admin (<< 0.11.0)
 Description: Language package for lxqt-admin
  The l10n files for lxqt-admin.
  .
