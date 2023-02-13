@@ -1,6 +1,5 @@
 Source: lxqt-admin
-Maintainer: Lubuntu Developers <lubuntu-devel@lists.ubuntu.com>
-XSBC-Original-Maintainer: LXQt Packaging Team <pkg-lxqt-devel@lists.alioth.debian.org>
+Maintainer: LXQt Packaging Team <pkg-lxqt-devel@lists.alioth.debian.org>
 Uploaders: Alf Gaida <agaida@siduction.org>,
            ChangZhuo Chen (陳昌倬) <czchen@debian.org>,
            Andrew Lee (李健秋) <ajqlee@debian.org>,
@@ -10,24 +9,25 @@ Section: x11
 Priority: optional
 Build-Depends: debhelper-compat (= 13),
                libkf5windowsystem-dev,
-               liblxqt1-dev (>= 1.2.0),
+               liblxqt1-dev (>= 1.2.0~),
                libpolkit-qt5-1-dev,
                libqt5svg5-dev,
                libqt5x11extras5-dev,
                libsystemd-dev,
                libx11-dev
 Standards-Version: 4.6.1
-Vcs-Browser: https://git.lubuntu.me/Lubuntu/lxqt-admin-packaging
-Vcs-Git: https://git.lubuntu.me/Lubuntu/lxqt-admin-packaging.git
-XS-Debian-Vcs-Browser: https://salsa.debian.org/lxqt-team/lxqt-admin
-XS-Debian-Vcs-Git: https://salsa.debian.org/lxqt-team/lxqt-admin.git
+Vcs-Browser: https://salsa.debian.org/lxqt-team/lxqt-admin
+Vcs-Git: https://salsa.debian.org/lxqt-team/lxqt-admin.git
 Homepage: https://github.com/lxqt/lxqt-admin
 Rules-Requires-Root: no
 
 Package: lxqt-admin
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
-Recommends: lxqt-admin-l10n, lxqt-policykit, lxqt-qtplugin
+Depends: ${misc:Depends},
+         ${shlibs:Depends},
+Recommends: lxqt-admin-l10n,
+            lxqt-policykit,
+            lxqt-qtplugin,
 Description: Admin tools for LXQt
  Admin tools for LXQt, as of now:
   * lxqt-admin-time
@@ -39,7 +39,8 @@ Package: lxqt-admin-l10n
 Architecture: all
 Multi-Arch: foreign
 Section: localization
-Depends: qttranslations5-l10n, ${misc:Depends}
+Depends: ${misc:Depends},
+         qttranslations5-l10n,
 Description: Language package for lxqt-admin
  The l10n files for lxqt-admin.
  .

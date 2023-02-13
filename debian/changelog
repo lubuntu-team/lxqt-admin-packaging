@@ -1,11 +1,25 @@
-lxqt-admin (1.2.0-0ubuntu1) lunar; urgency=medium
+lxqt-admin (1.2.0-1) unstable; urgency=medium
 
-  * New upstream version.
-  * Fix the watch file, for real this time.
-  * Lubuntuify the package slightly, to make debhelper happy.
-  * Bump build dependencies in debian/control.
+  * New upstream release.
 
- -- Simon Quigley <tsimonq2@ubuntu.com>  Thu, 17 Nov 2022 22:12:20 -0600
+ -- ChangZhuo Chen (陳昌倬) <czchen@debian.org>  Wed, 14 Dec 2022 23:23:59 +0800
+
+lxqt-admin (1.1.0-3) unstable; urgency=medium
+
+  * Fix Build-Depends.
+  * Change Depends/Recommends indent.
+  * Sort copyright.
+  * Add Repository-Browse to upstream metadata.
+  * Use LF in signing-key.asc.
+  * Workaround d/watch for github.
+
+ -- ChangZhuo Chen (陳昌倬) <czchen@debian.org>  Sun, 20 Nov 2022 23:04:48 +0800
+
+lxqt-admin (1.1.0-2) unstable; urgency=medium
+
+  * Merge to unstable.
+
+ -- ChangZhuo Chen (陳昌倬) <czchen@debian.org>  Sat, 19 Nov 2022 00:56:33 +0800
 
 lxqt-admin (1.1.0-1) experimental; urgency=medium
 
@@ -20,6 +34,13 @@ lxqt-admin (1.1.0-1) experimental; urgency=medium
     - upstream/*
 
  -- Aaron Rainbolt <arraybolt3@gmail.com>  Tue, 12 Jul 2022 16:16:35 -0500
+
+lxqt-admin (1.0.0-1) unstable; urgency=medium
+
+  * New upstream release
+  * Bumped Standards-Version to 4.6.0, no changes needed
+
+ -- S. 7 <severusseptimius7@gmail.com>  Thu, 25 Nov 2021 18:19:55 +0200
 
 lxqt-admin (0.16.0-1) unstable; urgency=medium
 
