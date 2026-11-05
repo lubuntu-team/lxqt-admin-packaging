@@ -7,7 +7,7 @@ Uploaders: Alf Gaida <agaida@siduction.org>,
            Simon Quigley <tsimonq2@debian.org>,
            Aaron Rainbolt <arraybolt3@gmail.com>
 Section: x11
-Build-Depends: debhelper-compat (= 13),
+Build-Depends: debhelper-compat (= 14),
                libkf6windowsystem-dev,
                liblxqt2-dev (>= 2.5.0),
                libpolkit-qt6-1-dev,
@@ -23,7 +23,6 @@ Homepage: https://github.com/lxqt/lxqt-admin
 
 Package: lxqt-admin
 Architecture: any
-Depends: ${misc:Depends}, ${shlibs:Depends}
 Recommends: lxqt-admin-l10n, lxqt-policykit, lxqt-qtplugin
 Description: Admin tools for LXQt
  Admin tools for LXQt, as of now:
@@ -36,7 +35,7 @@ Package: lxqt-admin-l10n
 Architecture: all
 Multi-Arch: foreign
 Section: localization
-Depends: qt6-translations-l10n, ${misc:Depends}
+Depends: qt6-translations-l10n
 Description: Language package for lxqt-admin
  The l10n files for lxqt-admin.
  .
